@@ -1,4 +1,0 @@
-run,valid_rows,invalid_rows,data_to_error_ratio,errors
-1,2,3,0.6666666666666666,2
-2,2,3,0.6666666666666666,2
-3,2,3,0.6666666666666666,2
