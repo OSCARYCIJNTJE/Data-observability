@@ -1,9 +1,13 @@
+from pathlib import Path
 import json
 import csv
-from pathlib import Path
 
-INPUT_FILE = Path("site_health_events.json")
-OUTPUT_FILE = Path("../construction_elt_project/seeds/site_health_events.csv")
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+INPUT_FILE = BASE_DIR / "site_health_events.json"
+OUTPUT_FILE = BASE_DIR / "construction_elt_project" / "seeds" / "site_health_events.csv"
+
+OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 fieldnames = [
     "site_id",

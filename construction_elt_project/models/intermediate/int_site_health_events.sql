@@ -11,7 +11,7 @@ SELECT
     END AS severity_rank,
 
     score,
-    event_description,
-    event_timestamp
+    description,
+    timestamp
 
 FROM {{ ref('stg_site_health') }}

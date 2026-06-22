@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir \
+    dbt-core==1.9.4 \
+    dbt-duckdb==1.9.2 \
+    kafka-python
+
+COPY construction_elt_project ./construction_elt_project
+COPY scripts ./scripts
+COPY run_pipeline_docker.py ./run_pipeline_docker.py
+COPY profiles.yml ./profiles.yml
+
+ENV DBT_PROFILES_DIR=/app
+
+CMD ["python", "run_pipeline_docker.py"]

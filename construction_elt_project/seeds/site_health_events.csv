@@ -1,4 +1,4 @@
-site_id,event_type,severity,score,event_description,event_timestamp
+site_id,event_type,severity,score,description,timestamp
 SITE-A,CORRELATION,HIGH,,Delivery delay + equipment issue detected,1782066554584
 SITE-A,CORRELATION,HIGH,,Delivery delay + equipment issue detected,1782066554591
 SITE-A,RISK,HIGH,70,Delivery delay + equipment issue detected,1782066554688

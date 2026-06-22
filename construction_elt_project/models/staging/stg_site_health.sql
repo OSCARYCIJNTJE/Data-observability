@@ -3,6 +3,6 @@ SELECT
     event_type,
     severity,
     score,
-    event_description,
-    event_timestamp
+    description,
+    timestamp
 FROM {{ ref('site_health_events') }}

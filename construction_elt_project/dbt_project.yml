@@ -43,5 +43,5 @@ seeds:
         event_type: string
         severity: string
         score: bigint
-        event_description: string
-        event_timestamp: bigint
+        description: string
+        timestamp: bigint

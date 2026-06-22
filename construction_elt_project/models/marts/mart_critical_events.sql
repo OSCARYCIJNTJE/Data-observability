@@ -3,7 +3,7 @@ SELECT
     event_type,
     severity,
     score,
-    event_description,
-    event_timestamp
+    description,
+    timestamp
 FROM {{ ref('int_site_health_events') }}
 WHERE severity = 'CRITICAL'

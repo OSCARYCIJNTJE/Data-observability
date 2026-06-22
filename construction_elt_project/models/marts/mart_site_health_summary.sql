@@ -7,7 +7,7 @@ SELECT
 
     AVG(score) AS avg_score,
 
-    MAX(event_timestamp) AS latest_event_timestamp
+    MAX(timestamp) AS latest_event_timestamp
 
 FROM {{ ref('int_site_health_events') }}
 

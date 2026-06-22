@@ -26,10 +26,10 @@ seeds:
       - name: score
         description: Numeric risk or alert score. Can be null for correlation events.
 
-      - name: event_description
+      - name: description
         description: Human-readable explanation of the event.
 
-      - name: event_timestamp
+      - name: timestamp
         description: Event timestamp from Kafka in Unix milliseconds.
         tests:
           - not_null
@@ -60,10 +60,10 @@ models:
       - name: score
         description: Numeric score associated with the event.
 
-      - name: event_description
+      - name: description
         description: Description of the event.
 
-      - name: event_timestamp
+      - name: timestamp
         description: Event timestamp in Unix milliseconds.
         tests:
           - not_null
@@ -94,10 +94,10 @@ models:
       - name: score
         description: Numeric score associated with risk or alert events.
 
-      - name: event_description
+      - name: description
         description: Description of the event.
 
-      - name: event_timestamp
+      - name: timestamp
         description: Event timestamp in Unix milliseconds.
         tests:
           - not_null

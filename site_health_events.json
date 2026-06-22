@@ -98,4 +98,3 @@
 {"SITEID":"SITE-A","EVENTTYPE":"RISK","SEVERITY":"HIGH","SCORE":70,"DESCRIPTION":"Delivery delay + equipment issue detected","TIMESTAMP":1782113011239}
 {"SITEID":"SITE-A","EVENTTYPE":"RISK","SEVERITY":"HIGH","SCORE":70,"DESCRIPTION":"Delivery delay + equipment issue detected","TIMESTAMP":1782113011239}
 {"SITEID":"SITE-A","EVENTTYPE":"RISK","SEVERITY":"HIGH","SCORE":70,"DESCRIPTION":"Delivery delay + equipment issue detected","TIMESTAMP":1782113011239}
-Processed a total of 100 messages

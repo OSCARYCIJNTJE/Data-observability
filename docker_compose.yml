@@ -1,0 +1,10 @@
+  dbt-pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile.dbt
+    depends_on:
+      - kafka
+      - ksqldb
+      - construction-app
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
