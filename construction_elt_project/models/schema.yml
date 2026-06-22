@@ -1,0 +1,134 @@
+version: 2
+
+seeds:
+  - name: site_health_events
+    description: Raw exported Site Health Data Product events from Kafka/ksqlDB.
+    columns:
+      - name: site_id
+        description: Construction site identifier.
+        tests:
+          - not_null
+
+      - name: event_type
+        description: Type of event, such as RISK, CORRELATION, or ALERT.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['RISK', 'CORRELATION', 'ALERT']
+
+      - name: severity
+        description: Severity level of the event.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
+
+      - name: score
+        description: Numeric risk or alert score. Can be null for correlation events.
+
+      - name: event_description
+        description: Human-readable explanation of the event.
+
+      - name: event_timestamp
+        description: Event timestamp from Kafka in Unix milliseconds.
+        tests:
+          - not_null
+
+models:
+  - name: stg_site_health
+    description: Standardized staging model for Site Health events.
+    columns:
+      - name: site_id
+        description: Construction site identifier.
+        tests:
+          - not_null
+
+      - name: event_type
+        description: Standardized event type.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['RISK', 'CORRELATION', 'ALERT']
+
+      - name: severity
+        description: Event severity level.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
+
+      - name: score
+        description: Numeric score associated with the event.
+
+      - name: event_description
+        description: Description of the event.
+
+      - name: event_timestamp
+        description: Event timestamp in Unix milliseconds.
+        tests:
+          - not_null
+
+  - name: int_site_health_events
+    description: Intermediate model that enriches Site Health events with severity ranking.
+    columns:
+      - name: site_id
+        description: Construction site identifier.
+        tests:
+          - not_null
+
+      - name: event_type
+        description: Type of Site Health event.
+        tests:
+          - not_null
+
+      - name: severity
+        description: Event severity level.
+        tests:
+          - not_null
+
+      - name: severity_rank
+        description: Numeric ranking of severity for analytical sorting.
+        tests:
+          - not_null
+
+      - name: score
+        description: Numeric score associated with risk or alert events.
+
+      - name: event_description
+        description: Description of the event.
+
+      - name: event_timestamp
+        description: Event timestamp in Unix milliseconds.
+        tests:
+          - not_null
+
+  - name: mart_site_health_summary
+    description: Aggregated analytical mart summarizing Site Health events by site, event type, and severity.
+    columns:
+      - name: site_id
+        description: Construction site identifier.
+        tests:
+          - not_null
+
+      - name: event_type
+        description: Type of Site Health event.
+        tests:
+          - not_null
+
+      - name: severity
+        description: Event severity level.
+        tests:
+          - not_null
+
+      - name: event_count
+        description: Number of events in the group.
+        tests:
+          - not_null
+
+      - name: avg_score
+        description: Average score for the grouped events.
+
+      - name: latest_event_timestamp
+        description: Most recent event timestamp in the group.
+        tests:
+          - not_null
