@@ -1,37 +1,44 @@
-import json
 import os
+import json
 from kafka import KafkaConsumer
 
-BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
-TOPIC = os.getenv("KAFKA_TOPIC", "site-health-stream")
-OUTPUT_FILE = os.getenv("KAFKA_EXPORT_FILE", "site_health_events.json")
-MAX_MESSAGES = int(os.getenv("MAX_MESSAGES", "10"))
+bootstrap_servers = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:29092")
+topic = os.getenv("KAFKA_TOPIC", "site-health-stream")
+output_file = os.getenv("KAFKA_EXPORT_FILE", "site_health_events.json")
+max_messages = int(os.getenv("MAX_MESSAGES", "10"))
+consumer_timeout_ms = int(os.getenv("CONSUMER_TIMEOUT_MS", "60000"))
+
+print(f"Connecting to Kafka: {bootstrap_servers}", flush=True)
+print(f"Reading topic: {topic}", flush=True)
+print(f"Max messages: {max_messages}", flush=True)
 
 consumer = KafkaConsumer(
-    TOPIC,
-    bootstrap_servers=BOOTSTRAP_SERVERS,
+    topic,
+    bootstrap_servers=bootstrap_servers,
     auto_offset_reset="earliest",
-    enable_auto_commit=False,
-    group_id=None,
-    value_deserializer=lambda value: json.loads(value.decode("utf-8"))
+    enable_auto_commit=True,
+    group_id="dbt-pipeline-ci",
+    consumer_timeout_ms=consumer_timeout_ms,
+    value_deserializer=lambda m: json.loads(m.decode("utf-8")),
 )
 
-print(f"Exporting from topic: {TOPIC}")
-print(f"Bootstrap servers: {BOOTSTRAP_SERVERS}")
-print(f"Max messages: {MAX_MESSAGES}")
+events = []
 
-count = 0
+for message in consumer:
+    events.append(message.value)
+    print(f"Consumed message {len(events)}/{max_messages}", flush=True)
 
-with open(OUTPUT_FILE, "w", encoding="utf-8") as outfile:
-    for message in consumer:
-        json.dump(message.value, outfile)
-        outfile.write("\n")
-
-        count += 1
-
-        if count >= MAX_MESSAGES:
-            break
+    if len(events) >= max_messages:
+        break
 
 consumer.close()
 
-print(f"Exported {count} messages to {OUTPUT_FILE}")
+print(f"Finished consuming. Total messages: {len(events)}", flush=True)
+
+if len(events) == 0:
+    raise RuntimeError("No Kafka messages were consumed. Producer may not be writing to the expected topic.")
+
+with open(output_file, "w") as f:
+    json.dump(events, f, indent=2)
+
+print(f"Wrote events to {output_file}", flush=True)
