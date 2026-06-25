@@ -8,7 +8,6 @@ echo "1. Exporting Kafka topic to JSON..."
 kafka-console-consumer.sh \
   --bootstrap-server kafka:29092 \
   --topic site-health-stream \
-  --from-beginning \
   --max-messages 10 > site_health_events.json
 
 echo "2. Converting JSON to CSV..."

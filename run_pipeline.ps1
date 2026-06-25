@@ -10,7 +10,6 @@ Write-Host "1. Exporting Kafka topic to JSON..."
 docker exec -i $KafkaContainer /opt/kafka/bin/kafka-console-consumer.sh `
   --bootstrap-server kafka:29092 `
   --topic $Topic `
-  --from-beginning `
   --max-messages 10 > $JsonOutput
 
 Write-Host "2. Converting JSON to CSV..."
