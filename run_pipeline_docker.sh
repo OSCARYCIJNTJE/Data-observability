@@ -9,7 +9,7 @@ kafka-console-consumer.sh \
   --bootstrap-server kafka:29092 \
   --topic site-health-stream \
   --from-beginning \
-  --max-messages 100 > site_health_events.json
+  --max-messages 10 > site_health_events.json
 
 echo "2. Converting JSON to CSV..."
 
