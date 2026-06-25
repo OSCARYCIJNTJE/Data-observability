@@ -11,7 +11,7 @@ docker exec -i $KafkaContainer /opt/kafka/bin/kafka-console-consumer.sh `
   --bootstrap-server kafka:29092 `
   --topic $Topic `
   --from-beginning `
-  --max-messages 100 > $JsonOutput
+  --max-messages 10 > $JsonOutput
 
 Write-Host "2. Converting JSON to CSV..."
 
