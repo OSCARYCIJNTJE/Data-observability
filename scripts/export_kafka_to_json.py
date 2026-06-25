@@ -5,7 +5,7 @@ from kafka import KafkaConsumer
 BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
 TOPIC = os.getenv("KAFKA_TOPIC", "site-health-stream")
 OUTPUT_FILE = os.getenv("KAFKA_EXPORT_FILE", "site_health_events.json")
-MAX_MESSAGES = int(os.getenv("MAX_MESSAGES", "100"))
+MAX_MESSAGES = int(os.getenv("MAX_MESSAGES", "10"))
 
 consumer = KafkaConsumer(
     TOPIC,
