@@ -1,7 +1,7 @@
   dbt-pipeline:
     build:
       context: .
-      dockerfile: Dockerfile.dbt
+      dockerfile: dockerfile.dbt
     depends_on:
       - kafka
       - ksqldb
